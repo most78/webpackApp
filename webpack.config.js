@@ -1,11 +1,11 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
+const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
   entry: {
     app: './src/app.js',
-    contact: './src/contact.js'
   },
   output: {
     path: __dirname + '/dist',
@@ -15,10 +15,7 @@ module.exports = {
     rules: [
       {
         test: /\.scss$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: ['css-loader', 'sass-loader']
-        })
+        use: ['style-loader','css-loader', 'sass-loader']
       },
       {
         test: /\.pug$/,
@@ -31,10 +28,17 @@ module.exports = {
     compress: true,
     port: 8000,
     stats: "errors-only",
+    hot: true,
     open: true
   },
   plugins: [
-    new ExtractTextPlugin("styles.css"),
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin(),
+    new ExtractTextPlugin({
+      filename: 'styles.css',
+      disable: true,
+      allChunks: true
+    }),
     new HtmlWebpackPlugin({
       title: 'webpackApp - Marcos.Ostos',
       minify: {
@@ -54,6 +58,5 @@ module.exports = {
       filename: 'contact.html',
       template: './src/contact.html',
     })
-    
   ]
 }
