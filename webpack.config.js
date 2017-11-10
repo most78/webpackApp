@@ -19,6 +19,10 @@ module.exports = {
           fallback: 'style-loader',
           use: ['css-loader', 'sass-loader']
         })
+      },
+      {
+        test: /\.pug$/,
+        use: ["html-loader", "pug-html-loader"]﻿
       }
     ]
   },
@@ -38,7 +42,7 @@ module.exports = {
       },
       hash: true,
       excludeChunks: ['contact'],
-      template: './src/index.html',
+      template: './src/index.pug',
     }),
     new HtmlWebpackPlugin({
       title: 'Contact - Marcos.Ostos',
