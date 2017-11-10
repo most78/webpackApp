@@ -28,6 +28,13 @@ module.exports = {
       {
         test: /\.pug$/,
         use: ["html-loader", "pug-html-loader"]﻿
+      },
+      {
+        test: /\.(gif|png|jpg|svg)$/,
+        use: [
+          'file-loader?name=images/[name].[ext]',
+          'image-webpack-loader'
+        ]
       }
     ]
   },
