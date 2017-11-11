@@ -2,6 +2,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const webpack = require('webpack');
 const path = require('path');
+const bootstapEntryPoint = require('./webpack.bootstrap.config');
 const isProd = process.env.NODE_ENV === 'production';
 const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
 const cssProd = ExtractTextPlugin.extract({
@@ -10,10 +11,12 @@ const cssProd = ExtractTextPlugin.extract({
   publicPath: './dist'
 })
 const cssConfig = isProd ? cssProd : cssDev;
+const bootstrapcConfig = isProd ? bootstapEntryPoint.prod : bootstapEntryPoint.dev;
 
 module.exports = {
   entry: {
     app: './src/app.js',
+    bootstrap: bootstrapcConfig
   },
   output: {
     path: __dirname + '/dist',
@@ -35,6 +38,18 @@ module.exports = {
           'file-loader?name=images/[name].[ext]',
           'image-webpack-loader'
         ]
+      },
+      { 
+        test: /\.(woff2?|svg)$/,
+        use: 'url-loader?limit=10000&name=fonts/[name].[ext]'
+      },
+      { 
+        test: /\.(ttf|eot)$/,
+        use: 'file-loader?&name=fonts/[name].[ext]'
+      },
+      { 
+        test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/,
+        use: 'imports-loader?jQuery=jquery'
       }
     ]
   },
@@ -50,7 +65,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
-      filename: 'styles.css',
+      filename: '/css/[name].css',
       disable: !isProd,
       allChunks: true
     }),

@@ -1,3 +1,5 @@
+@import "./src/bootstrap/customizations.scss";
+
 html{
   display: block;
   height: 100%;
@@ -15,7 +17,7 @@ html{
       text-transform: uppercase;
     }
     p{
-      color: grey;
+      color: $gray-light;
       font-size: 1.5em;
     }
   }
