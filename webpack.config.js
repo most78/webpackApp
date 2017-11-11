@@ -13,12 +13,12 @@ const cssProd = ExtractTextPlugin.extract({
   publicPath: './dist'
 })
 const cssConfig = isProd ? cssProd : cssDev;
-const bootstrapcConfig = isProd ? bootstapEntryPoint.prod : bootstapEntryPoint.dev;
+const bootstrapConfig = isProd ? bootstapEntryPoint.prod : bootstapEntryPoint.dev;
 
 module.exports = {
   entry: {
     app: './src/app.js',
-    bootstrap: bootstrapcConfig
+    bootstrap: bootstrapConfig
   },
   output: {
     path: __dirname + '/dist',
@@ -67,7 +67,7 @@ module.exports = {
     new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new ExtractTextPlugin({
-      filename: '/css/[name].css',
+      filename: './css/[name].css',
       disable: !isProd,
       allChunks: true
     }),
