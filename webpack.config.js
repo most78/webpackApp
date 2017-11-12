@@ -10,7 +10,7 @@ const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
 const cssProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
   use: ['css-loader', 'sass-loader'],
-  publicPath: './dist'
+  publicPath: './..'
 })
 const cssConfig = isProd ? cssProd : cssDev;
 const bootstrapConfig = isProd ? bootstapEntryPoint.prod : bootstapEntryPoint.dev;
@@ -21,7 +21,7 @@ module.exports = {
     bootstrap: bootstrapConfig
   },
   output: {
-    path: __dirname + '/dist',
+    path: path.resolve(__dirname, 'dist'),
     filename: '[name].bundle.js'
   },
   module: {
@@ -37,7 +37,7 @@ module.exports = {
       {
         test: /\.(gif|png|jpg|svg)$/,
         use: [
-          'file-loader?name=images/[name].[ext]',
+          'file-loader?name=/images/[name].[ext]&useRelativePath: process.env.NODE_ENV === "production"',
           'image-webpack-loader'
         ]
       },

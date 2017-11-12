@@ -5,7 +5,7 @@ html {
 
 html body {
   align-items: center;
-  background-image: url(./distimages/fernandoReyes.jpg);
+  background-image: url(./../images/fernandoReyes.jpg);
   background-size: cover;
   display: flex;
   flex-direction: column;
