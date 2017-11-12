@@ -1,19 +1,19 @@
 const path = require('path');
-const glob = require('glob');
+const glob = require('glob-all');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const PurifyCSSPlugin = require('purifycss-webpack');
 const webpack = require('webpack');
-const bootstapEntryPoint = require('./webpack.bootstrap.config');
+const bootstapEntryPoints = require('./webpack.bootstrap.config');
 const isProd = process.env.NODE_ENV === 'production';
 const cssDev = ['style-loader', 'css-loader', 'sass-loader'];
 const cssProd = ExtractTextPlugin.extract({
   fallback: 'style-loader',
   use: ['css-loader', 'sass-loader'],
-  publicPath: './..'
+  publicPath: './..',
 })
 const cssConfig = isProd ? cssProd : cssDev;
-const bootstrapConfig = isProd ? bootstapEntryPoint.prod : bootstapEntryPoint.dev;
+const bootstrapConfig = isProd ? bootstapEntryPoints.prod : bootstapEntryPoints.dev;
 
 module.exports = {
   entry: {
@@ -72,7 +72,10 @@ module.exports = {
       allChunks: true
     }),
     new PurifyCSSPlugin({
-      paths: glob.sync(path.join(__dirname, 'src/*.html')),
+      paths: glob.sync([
+        path.join(__dirname, 'src/*.pug'),
+        path.join(__dirname, 'src/*/*.pug')
+      ]),
     }),
     new HtmlWebpackPlugin({
       title: 'webpackApp - Marcos.Ostos',
@@ -91,7 +94,7 @@ module.exports = {
       hash: true,
       chunks: ['contact'],
       filename: 'contact.html',
-      template: './src/contact.html',
+      template: './src/contact.pug',
     })
   ]
 }
