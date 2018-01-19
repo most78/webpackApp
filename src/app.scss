@@ -1,22 +1,25 @@
 @import "./src/bootstrap/customizations.scss";
 
-html{
+html {
   display: block;
   height: 100%;
+
   body {
     align-items: center;
-    background-image: url('./images/fernandoReyes.jpg');
+    background-image: url("./images/fernandoReyes.jpg");
     background-size: cover;
     color: $gray-light;
     display: flex;
     flex-direction: column;
     height: 100%;
     width: 100%;
-    h1{
+
+    h1 {
       color: white;
       text-transform: uppercase;
     }
-    p{
+
+    p {
       font-size: 1.5em;
     }
   }
