@@ -1,4 +1,5 @@
-@import "./src/bootstrap/customizations.scss";
+@import "bootstrap/customizations.scss";
+@import "commons/variables/colors.scss";
 
 html {
   display: block;
@@ -6,7 +7,9 @@ html {
 
   body {
     align-items: center;
-    background-image: url("./images/fernandoReyes.jpg");
+    background-color: $background-color;
+
+    //background-image: url("../images/fernandoReyes.jpg");
     background-size: cover;
     color: $gray-light;
     display: flex;
